@@ -60,6 +60,8 @@ function M.prepare_jobs(source, destination, filetypes, python_root)
       {}
     )
   )
+  local cwd = vim.uv.cwd()
+  vim.uv.chdir(python_root)
   --- @type ReplaceJob[]
   local replace_jobs = {}
   if utils.is_python_file(source) and utils.is_python_file(destination) then
@@ -79,6 +81,7 @@ function M.prepare_jobs(source, destination, filetypes, python_root)
       table.insert(replace_jobs, m_job)
     end
   end
+  vim.uv.chdir(cwd)
   return replace_jobs
 end
 
