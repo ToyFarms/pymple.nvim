@@ -68,21 +68,21 @@ local make_sed_patterns = function(
       utils.split_import_on_last_separator(source_import_path)
     local d_head, d_tail =
       utils.split_import_on_last_separator(destination_import_path)
-    local sed_args_base = "s/"
+    local sed_args_base = "s/\\<"
       .. utils.escape_import_path(s_head)
-      .. "/"
+      .. "\\>/"
       .. utils.escape_import_path(d_head)
       .. "/"
-    local sed_args_module = "s/"
+    local sed_args_module = "s/\\<"
       .. utils.escape_import_path(s_tail)
-      .. "/"
+      .. "\\>/"
       .. utils.escape_import_path(d_tail)
       .. "/"
     return { sed_args_base, sed_args_module }
   end
   return {
     string.format(
-      "s/%s/%s/",
+      "s/\\<%s\\>/%s/",
       utils.escape_import_path(source_import_path),
       utils.escape_import_path(destination_import_path)
     ),
